@@ -1,0 +1,13 @@
+.Order__conatiner{
+    .Order__orders{
+        display: flex;
+        column-gap: 10px;
+        row-gap: 10px;
+    }
+    .Order__confirm-order{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+}

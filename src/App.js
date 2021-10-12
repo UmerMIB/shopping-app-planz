@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { SignIn } from './Auth/Signin'
+import { SignUp } from './Auth/Signup'
+import { Order } from './Order'
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      <Router>
+        <Switch>
+          <Route path="/" component={SignIn} exact />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/order" component={Order} />
+        </Switch>
+      </Router>
+    </Fragment>
+  )
 }
-
-export default App;
