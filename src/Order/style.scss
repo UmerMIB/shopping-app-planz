@@ -1,13 +1,33 @@
-.Order__conatiner{
-    .Order__orders{
-        display: flex;
-        column-gap: 10px;
-        row-gap: 10px;
+.Order {
+  &__container {
+    justify-content: center;
+    padding: 10px;
+  }
+  &__orders {
+    display: flex;
+    column-gap: 10px;
+    row-gap: 10px;
+    justify-content: center;
+  }
+  &__confirm-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  &__confirmation-modal {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #478d76 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > p {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: fantasy;
+      color: blanchedalmond;
     }
-    .Order__confirm-order{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-    }
+  }
 }

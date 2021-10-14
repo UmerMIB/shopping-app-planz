@@ -1,17 +1,17 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-const createError = require('http-errors'),
-  express = require('express'),
-  path = require('path'),
-  cookieParser = require('cookie-parser'),
-  logger = require('morgan'),
-  MONGODB_URI = process.env.LOCALHOST_MONGODB_URI,
-  accounts = require('./routes/accounts'),
-  port = process.env.PORT || 5000,
-  mongoose = require('mongoose'),
-  cors = require('cors'),
-  app = express()
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const MONGODB_URI = process.env.MONGODB_URI
+const accounts = require('./routes/accounts')
+const port = process.env.PORT || 4000
+const mongoose = require('mongoose')
+const cors = require('cors')
+const app = express()
 
 mongoose
   .connect(MONGODB_URI, {
@@ -19,14 +19,9 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(
-    (db) => {
-      console.log(`Server correctly connected with mongodb`)
-    },
-    (err) => {
-      console.log('Error occured while connecting with mongodb ', err)
-    },
+    () => console.log(`Server correctly connected with mongodb`),
+    (err) => console.log('Error occured while connecting with mongodb ', err),
   )
-mongoose.set('useFindAndModify', false)
 
 app.use(logger('dev'))
 app.use(express.json())

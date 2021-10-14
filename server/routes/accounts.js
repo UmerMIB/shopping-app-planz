@@ -1,7 +1,6 @@
 const express = require('express'),
   accountsRouter = express.Router(),
-  user = require('../model/user'),
-  userSession = require('../model/userSession')
+  user = require('../model/user')
 
 accountsRouter.route('/signup').post((req, res) => {
   const { body } = req
@@ -40,7 +39,7 @@ accountsRouter.route('/signup').post((req, res) => {
       if (err) {
         return res.send({
           success: false,
-          message: 'Error: Server Error',
+          message: err.message,
         })
       } else if (previousUsers.length > 0) {
         return res.send({
@@ -59,7 +58,7 @@ accountsRouter.route('/signup').post((req, res) => {
         if (err) {
           return res.send({
             success: false,
-            message: 'Error: Server Error',
+            message: err.message,
           })
         }
         return res.send({
@@ -70,10 +69,10 @@ accountsRouter.route('/signup').post((req, res) => {
     },
   )
 })
-accountsRouter.route('/signin').post((req, res) => {
-  const { body } = req
-  let { email, password } = body
-  console.log(`req.body`, req.body)
+accountsRouter.route('/signin').get((req, res) => {
+  const { query } = req
+  let { email, password } = query
+  console.log(`req.query`, req.body)
 
   if (!email) {
     return res.send({
@@ -114,48 +113,9 @@ accountsRouter.route('/signin').post((req, res) => {
         })
       }
 
-      const newUserSession = new userSession()
-      newUserSession.userId = User._id
-      newUserSession.save((err, doc) => {
-        if (err) {
-          return res.send({
-            success: false,
-            message: 'Error: Invalid',
-          })
-        }
-        return res.send({
-          success: true,
-          message: 'Valid signIn',
-          token: User._id,
-        })
-      })
-    },
-  )
-})
-
-accountsRouter.route('/signout').get((req, res) => {
-  const { query } = req
-  const { token } = query
-  //?token=test
-
-  //verify the token is one of  a kindand its not deleted
-  userSession.findOneAndUpdate(
-    {
-      _id: token,
-      isDeleted: false,
-    },
-    { $set: { isDeleted: true } },
-    (err, sessions) => {
-      if (err) {
-        return res.send({
-          success: false,
-          message: 'Error: Server error',
-        })
-      }
-
       return res.send({
         success: true,
-        message: 'Good',
+        message: 'Valid signIn',
       })
     },
   )

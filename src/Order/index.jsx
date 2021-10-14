@@ -3,9 +3,10 @@ import { Card } from '../Common/Card'
 import './style.scss'
 
 import Modal from '@material-ui/core/Modal'
+import { Grid, Paper } from '@material-ui/core'
 
 export const Order = () => {
-  const [orderCards, setOrderCards] = useState([{}, {}, {}, {}])
+  const [orderCards, setOrderCards] = useState([{}, {}, {}, {}, {}, {}])
   const [confirmOrder, setConfirmOrder] = useState(false)
 
   const handleOrder = () => {
@@ -13,21 +14,23 @@ export const Order = () => {
   }
 
   return (
-    <div className="Order__conatiner">
-      <div className="Order__orders">
+    <div className="Order__container">
+      <Grid className="Order__orders" container>
         {orderCards.map(() => (
-          <Card handleOrder={handleOrder} />
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Card handleOrder={handleOrder} />
+          </Grid>
         ))}
-      </div>
+      </Grid>
 
       <Modal
-        open={true}
+        open={confirmOrder}
         onClose={handleOrder}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        className={'Order__confirm-order'}
+        className="Order__confirm-order"
       >
-        <p>Your order has been confirmed</p>
+        <Paper className="Order__confirmation-modal">
+          <p>Your order has been confirmed</p>
+        </Paper>
       </Modal>
     </div>
   )
